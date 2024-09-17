@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-5p: %c - %m%n"/>
+        </Console>
+
+        <!-- JDBC Appender (DB Appender) -->
+        <JDBC name="DatabaseAppender" tableName="logs">
+            <ConnectionFactory class="org.apache.logging.log4j.core.appender.db.jdbc.JdbcAppender$ConnectionSource">
+                <Driver class="com.mysql.cj.jdbc.Driver"/>
+                <Url>jdbc:mysql://localhost:3306/shop2</Url>
+                <User>root</User>
+                <Password>1234</Password>
+            </ConnectionFactory>
+            <Column name="log_level" pattern="%level"/>
+            <Column name="logger" pattern="%logger"/>
+            <Column name="log_message" pattern="%message"/>
+            <Column name="timestamp" pattern="%d{yyyy-MM-dd HH:mm:ss}"/>
+            <Column name="thread" pattern="%thread"/>
+        </JDBC>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- Application Loggers -->
+        <Logger name="com.example" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+        <Logger name="org.springframework.core" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+        <Logger name="org.springframework.beans" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+        <Logger name="org.springframework.context" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+        <Logger name="org.springframework.web" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+
+        <!-- JDBC Loggers -->
+        <Logger name="jdbc.audit" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+        <Logger name="jdbc.resultset" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+        <Logger name="jdbc.connection" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+        <Logger name="jdbc.sqlonly" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Logger>
+
+        <!-- Root Logger -->
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DatabaseAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
